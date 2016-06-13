@@ -1,0 +1,38 @@
+{% extends 'bootstrap3/bootstrap3.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block bootstrap3_title %}
+    Seahorse
+{% endblock %}
+{% block bootstrap3_content %}
+<div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">拉勾网最新十个Python岗位</a>
+        </div>
+            <p class="navbar-text navbar-right"><em>Last update: {{timestamp}}</em></p>
+      </div>
+    </nav>
+    <ul class="list-group">
+        {% for item in items %}
+            <li class="list-group-item {% if not item.companyname %}list-group-item-danger{% endif %}">
+                {{ forloop.counter }}.
+                <a href="{{item.positionid}}">{{ item.positionname}}</a>
+                {% if item.companyname %}
+                    <span class="badge">createTime：{{item.createtime}}</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>posted by <a href="{{item.positionid}}">{{item.companyname}}</a></p>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{{item.item.positionid}}"><span class="badge pull-right">salary：{{item.salary}}</span></a>
+                        </div>
+                    </div>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock bootstrap3_content %}
